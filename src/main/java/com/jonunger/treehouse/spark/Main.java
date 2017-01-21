@@ -2,6 +2,7 @@ package com.jonunger.treehouse.spark;
 
 import com.jonunger.treehouse.spark.model.CourseIdea;
 import com.jonunger.treehouse.spark.model.CourseIdeaDAO;
+import com.jonunger.treehouse.spark.model.NotFoundException;
 import com.jonunger.treehouse.spark.model.SimpleCourseIdeaDAO;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -49,7 +50,6 @@ public class Main {
         }, new HandlebarsTemplateEngine());
 
         get("/ideas/:slug", (req, res) -> {
-            System.out.println("yuck");
             Map<String, Object> model = new HashMap<>();
             model.put("idea", dao.findBySlug(req.params("slug")));
             return new ModelAndView(model, "idea.hbs");
@@ -64,11 +64,17 @@ public class Main {
         }, new HandlebarsTemplateEngine());
 
         post( "/ideas/:slug/vote", (req, res) -> {
-
             CourseIdea idea = dao.findBySlug(req.params("slug"));
             idea.addVoter(req.attribute("username"));
             res.redirect("/ideas");
             return null;
+        });
+
+        exception(NotFoundException.class, (exec, req, res)->{
+            res.status(404 );
+            HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+            String html = engine.render(new ModelAndView(null, "not-found.hbs"));
+            res.body(html);
         });
     }
 }
