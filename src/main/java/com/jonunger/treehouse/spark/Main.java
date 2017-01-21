@@ -48,6 +48,13 @@ public class Main {
             return new ModelAndView(model, "ideas.hbs");
         }, new HandlebarsTemplateEngine());
 
+        get("/ideas/:slug", (req, res) -> {
+            System.out.println("yuck");
+            Map<String, Object> model = new HashMap<>();
+            model.put("idea", dao.findBySlug(req.params("slug")));
+            return new ModelAndView(model, "idea.hbs");
+        }, new HandlebarsTemplateEngine());
+
         post("/ideas", (req, res) ->{
             String title = req.queryParams("title");
            CourseIdea courseIdea = new CourseIdea(title, req.cookie("username"));
