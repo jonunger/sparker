@@ -1,9 +1,9 @@
-package com.jonunger.treehouse.spark;
+package com.jonunger.examples.spark;
 
-import com.jonunger.treehouse.spark.model.CourseIdea;
-import com.jonunger.treehouse.spark.model.CourseIdeaDAO;
-import com.jonunger.treehouse.spark.model.NotFoundException;
-import com.jonunger.treehouse.spark.model.SimpleCourseIdeaDAO;
+import com.jonunger.examples.spark.model.CourseIdea;
+import com.jonunger.examples.spark.model.CourseIdeaDAO;
+import com.jonunger.examples.spark.model.NotFoundException;
+import com.jonunger.examples.spark.model.SimpleCourseIdeaDAO;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -16,7 +16,7 @@ import static spark.Spark.*;
 /**
  * Created by junger on 1/16/2017.
  */
-public class Main {
+public class Sparker {
 
     private static String getFlashMessage(Request req) {
         if(req.session(false) == null){

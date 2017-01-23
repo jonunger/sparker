@@ -1,4 +1,4 @@
-package com.jonunger.treehouse.spark.model;
+package com.jonunger.examples.spark.model;
 
 import java.util.ArrayList;
 import java.util.List;

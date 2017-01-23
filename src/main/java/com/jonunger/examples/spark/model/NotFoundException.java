@@ -1,4 +1,4 @@
-package com.jonunger.treehouse.spark.model;
+package com.jonunger.examples.spark.model;
 
 /**
  * Created by junger on 1/21/2017.
