@@ -44,15 +44,15 @@ public class CourseIdea {
     }
 
 
-    public boolean addVoter(String voterUserName){
+    public boolean addVoter(String voterUserName) {
         return voters.add(voterUserName);
     }
 
-    public int getVoteCount(){
+    public int getVoteCount() {
         return voters.size();
     }
 
-    public List<String> getVoters(){
+    public List<String> getVoters() {
         return new ArrayList<>(voters);
     }
 

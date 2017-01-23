@@ -19,10 +19,10 @@ import static spark.Spark.*;
 public class Sparker {
 
     private static String getFlashMessage(Request req) {
-        if(req.session(false) == null){
+        if (req.session(false) == null) {
             return null;
         }
-        if(!req.session().attributes().contains(FLASH_MESSAGE_KEY)){
+        if (!req.session().attributes().contains(FLASH_MESSAGE_KEY)) {
             return null;
         }
         return (String) req.session().attribute(FLASH_MESSAGE_KEY);
@@ -36,28 +36,28 @@ public class Sparker {
 
         CourseIdeaDAO dao = new SimpleCourseIdeaDAO();
 
-        before("/ideas",(req, res) -> {
-            if (req.cookie("username") == null){
+        before("/ideas", (req, res) -> {
+            if (req.cookie("username") == null) {
                 res.redirect("/");
                 halt();
             }
         });
 
-        get("/hello", (req, res) ->{
+        get("/hello", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.cookie("username"));
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/sign-in", (req, res) ->{
-                    String username = req.queryParams("username");
-                    res.cookie("username", username);
-                    Map<String, String> model = new HashMap<>();
-                    model.put("username", username);
-                    return new ModelAndView(model, "sign-in.hbs");
-                }, new HandlebarsTemplateEngine());
+        post("/sign-in", (req, res) -> {
+            String username = req.queryParams("username");
+            res.cookie("username", username);
+            Map<String, String> model = new HashMap<>();
+            model.put("username", username);
+            return new ModelAndView(model, "sign-in.hbs");
+        }, new HandlebarsTemplateEngine());
 
-        get("/ideas", (req, res) ->{
+        get("/ideas", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("ideas", dao.findAll());
             model.put("flashMessage", getFlashMessage(req));
@@ -70,26 +70,26 @@ public class Sparker {
             return new ModelAndView(model, "idea.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/ideas", (req, res) ->{
+        post("/ideas", (req, res) -> {
             String title = req.queryParams("title");
-           CourseIdea courseIdea = new CourseIdea(title, req.cookie("username"));
+            CourseIdea courseIdea = new CourseIdea(title, req.cookie("username"));
             dao.add(courseIdea);
             res.redirect("/ideas");
             return null;
         }, new HandlebarsTemplateEngine());
 
-        post( "/ideas/:slug/vote", (req, res) -> {
+        post("/ideas/:slug/vote", (req, res) -> {
             CourseIdea idea = dao.findBySlug(req.params("slug"));
             boolean added = idea.addVoter(req.attribute("username"));
-            if(added){
+            if (added) {
                 setFlashMessage(req, "Thanks for your vote!");
             }
             res.redirect("/ideas");
             return null;
         });
 
-        exception(NotFoundException.class, (exec, req, res)->{
-            res.status(404 );
+        exception(NotFoundException.class, (exec, req, res) -> {
+            res.status(404);
             HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
             String html = engine.render(new ModelAndView(null, "not-found.hbs"));
             res.body(html);
