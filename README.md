@@ -39,21 +39,6 @@ The list of ideas that can be either voted on or submitted by the user
 
 TBA
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
@@ -61,7 +46,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Java Spark](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Java Spark](http://www.sparkjava.com) - The web framework used
 
 ## Contributing
 
@@ -75,7 +60,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Jon Unger** - *Initial work* - [GitHub](https://github.com/junger8)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/junger8/sparker/contributors) who participated in this project.
 
 ## License
 
